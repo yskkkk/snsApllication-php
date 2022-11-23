@@ -1,6 +1,7 @@
 <table class=chatinfo>
 <td>
 <?php
+error_reporting(0);
 $servername = "localhost";
 $username = "root";
 $password = "tomtom";
@@ -28,12 +29,14 @@ $chatcontents = $conn->query("select * from ".$user." order by count");
 $chatcount = mysqli_num_rows($chatcontents);
 
 
-if(($conn->query($view)===TRUE)&&($conn->query($view2)===TRUE)&&($conn->query($count)===TRUE))
-
+if(($conn->query($view)===TRUE)||($conn->query($view2)===TRUE)&&($conn->query($count)===TRUE))
+{
 	 foreach ($chatcontents as $chat){ 
-		echo $chat['count']."::".$chat['name']."::".$chat['message']."::".$chat['time']."::".$chat['view']."&";
+		echo $chat['count']."::".$chat['name']."::".$chat['message']."::".$chat['time']."::".$chat['view']."&<br>";
 		}
-
+}else{
+	echo"gd";
+}
 $conn->close();
 ?> 
 
