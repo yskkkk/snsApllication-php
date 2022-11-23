@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 $servername = "localhost";
 $username = "root";
 $password = "tomtom";
@@ -19,6 +20,11 @@ $value2 = $user2."_".$user1; //채팅방 이름
 
 $checkblock = "select * from friends where user1='".$user1."' and user2='".$user2."'";
 
+$checkprofile = "select * from profile where id='".$user2."'";
+
+$check2 = mysqli_query($conn,$checkprofile);
+$checksum2= mysqli_num_rows($check2); // 회원정보에 있는지 확인
+
 $check = mysqli_query($conn,$checkblock);
 $checksum= mysqli_num_rows($check); // 차단되었는지 확인
 
@@ -36,12 +42,17 @@ if($checksum){
 		{
 			echo$message." 전송완료";
 		}
-}else
+}
+else if(!$checksum2){
+			echo"존재하지 않는 회원입니다.";
+		}
+else
 {
 	if($conn->query($chatting1)===TRUE)
 		{
-			echo"차단한 상대입니다. 상대방은 메세지를 볼 수 없습니다.";
-		}	
+			echo"친구목록에 존재하지 않는 회원입니다. 상대방은 메세지를 볼 수 없습니다.";
+		}
+	
 }
 $conn->close();
 ?> 
