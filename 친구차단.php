@@ -19,13 +19,21 @@ $deletefriends = "delete from friends where user1='".$user1."'and user2='".$user
 $deletefriends2 = "delete from friends where user1='".$user2."'and user2='".$user1."'";
 
 $searchfriends = "select * from friends where user1='".$user2."'";
+$searchprofile ="select * from profile where id='".$user2."'";
 
 $check = mysqli_query($conn,$searchfriends);
-$checksum = mysqli_num_rows($check); // 프로필
+$checksum = mysqli_num_rows($check); //친구목록에서 존재하는지 검색
+
+$check2 = mysqli_query($conn,$searchprofile);
+$checksum2 = mysqli_num_rows($check2); //친구목록에서 존재하는지 검색
 
 if(($conn->query($deletefriends)===TRUE)&&($conn->query($deletefriends2)===TRUE)&&$checksum)
 	{
 		echo $user2."님을 차단하였습니다.";
+	}
+else if($checksum2)
+	{
+		echo "친구목록에 존재하지 않습니다.";
 	}
 else
 	{
