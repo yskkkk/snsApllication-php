@@ -32,6 +32,10 @@ $dropquery= "select CONCAT('DROP TABLE ', TABLE_SCHEMA, '.', TABLE_NAME, ';') FR
 
 $chatquery="select chatname from chatlist where chatname like '".$id."\_%'";
 
+$friendquery = "select * from friends where user2 ='".$id."'";
+
+$deletequery = "delete from friends where user2='".$id."'";
+
 $auto="alter table chatlist auto_increment=1";
 
 $searchtable = mysqli_query($conn,$dropquery); //   채팅방테이블이 있는지 여부를 확인
@@ -39,6 +43,9 @@ $searchtable = mysqli_query($conn,$dropquery); //   채팅방테이블이 있는
 
 $searchchat = mysqli_query($conn,$chatquery); //  채팅리스트에 있는지 여부를 확인
 $checknum2 = mysqli_num_rows($searchchat) ; 
+
+$searchfriend = mysqli_query($conn,$friendquery);
+$checknum3 = mysqli_num_rows($searchfriend); // 친구리스트에서 검색
 
 
 if($checksum){
@@ -50,13 +57,17 @@ if($checksum){
 				echo $st["CONCAT('DROP TABLE ', TABLE_SCHEMA, '.', TABLE_NAME, ';')"]." 실행<br>";
 			}
 		
-	}
+	}if($checknum3){// 친구목록에 id가 있는지 확인한다.
+                        if($conn ->query($deletequery)===TRUE){
+                                echo $friendquery."실행<br>";
+                        }
+        }
 	if($checknum2){//채팅방리스트가 하나라도 있으면
 		foreach($searchchat as $sc)// 채팅리스트에서 검색을 하나씩 불러옴 50
 		{
 			if(($conn->query("delete from chatlist where chatname ='".$sc['chatname']."'")===TRUE)&&($conn->query($autoCL)===TRUE))
 				{
-					echo $sc['chatname']." 실행2<br>";
+					echo $sc['chatname']." 실행<br>";
 				}
 		
 		}
