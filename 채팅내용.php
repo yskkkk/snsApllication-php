@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 
 $user1 = $_GET['user1'];
 $user2 = $_GET['user2'];
-
+//chatname = $_GET['chatname'];
 $user = $user1."_".$user2; //유저의 채팅방
 $user2 = $user2."_".$user1; //유저의 채팅방
 
