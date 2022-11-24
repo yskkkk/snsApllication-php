@@ -20,8 +20,10 @@ $chatcount = mysqli_num_rows($chatlist);
 
 
 	 foreach ($chatlist as $cl){ 
-		echo $cl['chatid']."::".$cl['chatname']."::".$cl['time']."&<br>";
+		echo $cl['roomname']."::".$cl['chatname']."::".$cl['time']."&<br>";
 		}
 
 $conn->close();
 ?> 
+// 방이름, a_b, 메세지가 온 최근 시간<br>
+a_b -> a에서 본 b와의 채팅방
