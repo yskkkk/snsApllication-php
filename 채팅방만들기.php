@@ -22,8 +22,9 @@ $createtable2 = "create table ".$value2."( count int not null auto_increment, na
 $existcheck1 = "select chatname from chatlist where chatname='".$value1."'"; 
 $existcheck2 = "select chatname from chatlist where chatname='".$value2."'"; // user2의 채팅이 있는지 확인
 
-$insertchatlist1="insert into chatlist(chatname,time,count) values('".$value1."',sysdate(),0)";
-$insertchatlist2="insert into chatlist(chatname,time,count) values('".$value2."',sysdate(),0)";
+$insertchatlist1="insert into chatlist(chatname,roomname,time,count) values('".$value1."','".$_GET['user2']."',sysdate(),0)";
+$insertchatlist2="insert into chatlist(chatname,roomname,time,count) values('".$value2."','".$_GET['user1']."',sysdate(),0)";
+
 
 $existResult1 = mysqli_query($conn,$existcheck1); //  용수의 영한이와의 채팅방이 있는지 여부를 확인함
 $checknum1 = mysqli_num_rows($existResult1) ;// 채팅방이 있는지 여부를 불러온 데이터의 컬럼 수로 파악 0일 경우 없음
