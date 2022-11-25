@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 $id = $_GET['id'];
 $phone =$_GET['phone'];
 
-$sql = "INSERT INTO profile(id, password, name, Nickname, message, image, phone, day, birthday) VALUES('".$_GET['id']."', '".$_GET['password']."', '".$_GET['name']."', '".$_GET['name']."', '".$_GET['message']."', '".$_GET['image']."', '".$_GET['phone']."', sysdate(), '".$_GET['birthday']."')";
+$sql = "INSERT INTO profile(id, password, name, Nickname, message, image, phone, day, birthday) VALUES('".$_GET['id']."', '".$_GET['password']."', '".$_GET['name']."', '".$_GET['name']."', '', 'assets/Ahnhyunsoo.png', '".$_GET['phone']."', sysdate(), '".$_GET['birthday']."')";
 $sql2="select id,phone from profile";
 
 if(($_GET['id']=="")){
