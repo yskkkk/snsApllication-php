@@ -19,7 +19,7 @@ $user2 = $_GET['user2'];
 //사진 이름 상태메세지  기본 친구목록 , user2시 특정친구 검색
 
 $friends = "select * from friends where user1='".$user1."'order by user2"; // 전체 친구 목록에서 user1의 친구를 찾음
-$friends2 = "select * from friends where user1='".$user1."'and user2 like '%".$user2."%'order by user2"; // 전체 친구 목록에서 user1의 검색 user2를 찾음
+$friends2 = "select * from friends where user1='".$user1."'and user2Nickname like '%".$user2."%'order by user2Nickname"; // 전체 친구 목록에서 user1의 검색 user2를 찾음
 
 $friendlist = $conn->query($friends); // 전체 친구 목록에서 검색
 
@@ -36,20 +36,26 @@ if($friendlist)
 						$showfriendvalue = mysqli_query($conn,$showfriends);
 						foreach($showfriendvalue as $sf)
 							{
-								echo  $sf['uid']."::".$sf['id']."::".$sf['name']."::".$sf['message']."::".$sf['image']."///";
+								echo  $sf['uid']."::".$sf['id']."::".$sf['name']."::".$sf['message']."::".$sf['image']."::".$sf['Nickname']."///";
 							}
 					}
 	}else
 		{	
 			if($exist){
-			$friends="select * from profile where id like '%".$user2."%' and id like (select user2 from friends where user2 like'%".$user2."%') order by id";
-			$friendlist = $conn ->query($friends);
-				foreach($friendlist as $fl)
-					{	
-						echo $fl['uid']."::".$fl['id']."::".$fl['name']."::".$fl['message']."::".$fl['image']."///";
+			$findfriends="select user2 from friends where user2Nickname like'%".$user2."%'";
+			$resultfind = mysqli_query($conn,$findfriends);
+			foreach($resultfind as $rf){
+			$findprofilequery = "select * from profile where id like '".$rf['user2']."' order by id";
+			$findprofile = mysqli_query($conn,$findprofilequery);
+				{ 
+					foreach($findprofile as $fp){
+					echo $fp['uid']."::".$fp['id']."::".$fp['name']."::".$fp['message']."::".$fp['image']."::".$fp['Nickname']."///";
 					}
+				}
+			}
+
 			}else
-			{
+			{	
 				echo"일치하는 사용자가 없습니다.";
 			}
 		}
