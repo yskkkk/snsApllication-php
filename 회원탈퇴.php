@@ -32,9 +32,9 @@ $dropquery= "select CONCAT('DROP TABLE ', TABLE_SCHEMA, '.', TABLE_NAME, ';') FR
 
 $chatquery="select chatname from chatlist where chatname like '".$id."\_%'";
 
-$friendquery = "select * from friends where user2 ='".$id."'";
+$friendquery = "select * from friends where user1= '".$id."'or user2 ='".$id."'";
 
-$deletequery = "delete from friends where user2='".$id."'";
+$deletequery = "delete from friends where user1 ='".$id."' or user2='".$id."'";
 
 $auto="alter table chatlist auto_increment=1";
 
@@ -59,7 +59,6 @@ if($checksum){
 		
 	}if($checknum3){// 친구목록에 id가 있는지 확인한다.
                         if($conn ->query($deletequery)===TRUE){
-                                echo $friendquery."실행<br>";
                         }
         }
 	if($checknum2){//채팅방리스트가 하나라도 있으면
@@ -67,18 +66,16 @@ if($checksum){
 		{
 			if(($conn->query("delete from chatlist where chatname ='".$sc['chatname']."'")===TRUE)&&($conn->query($autoCL)===TRUE))
 				{
-					echo $sc['chatname']." 실행<br>";
 				}
 		
 		}
 }
-
 	echo"회원탈퇴가 완료되었습니다.";
 
 }//프로필 지우기
 }else
 {
-	echo"일치하는 회원정보가 없습니다.";
+	echo"비밀번호가 일치하지 않습니다.";
 }
 
 $conn->close();
