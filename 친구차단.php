@@ -18,6 +18,13 @@ $user2 = $_GET['user2'];
 $deletefriends = "delete from friends where user1='".$user1."'and user2='".$user2."'";
 $deletefriends2 = "delete from friends where user1='".$user2."'and user2='".$user1."'";
 
+$addblacklist = "insert into blacklist(user1,user2) values('".$user1."','".$user2."')";
+
+$searchblack = "select * from blacklist where user1='".$user1."' and user2 ='".$user2."'";
+$check3 =mysqli_query($conn,$searchblack);
+$checksum3 = mysqli_num_rows($check3);
+
+echo $searchblack;
 $searchfriends = "select * from friends where user1='".$user2."'";
 $searchprofile ="select * from profile where id='".$user2."'";
 
@@ -27,7 +34,10 @@ $checksum = mysqli_num_rows($check); //친구목록에서 존재하는지 검색
 $check2 = mysqli_query($conn,$searchprofile);
 $checksum2 = mysqli_num_rows($check2); //친구목록에서 존재하는지 검색
 
-if(($conn->query($deletefriends)===TRUE)&&($conn->query($deletefriends2)===TRUE)&&$checksum)
+if($checksum3){
+	echo "이미 차단한 사용자 입니다.";
+}else{
+if(($conn->query($deletefriends)===TRUE)&&($conn->query($deletefriends2)===TRUE)&&($conn->query($addblacklist)===TRUE)&&$checksum)
 	{
 		echo $user2."님을 차단하였습니다.";
 	}
@@ -39,5 +49,6 @@ else
 	{
 		echo "존재하지 않는 사용자 입니다.";
 	}
+}
 $conn->close();
 ?>
