@@ -15,10 +15,16 @@ if ($conn->connect_error) {
 $user1 = $_GET['user1'];
 $user2 = $_GET['user2'];
 
-$addfriends = "INSERT INTO friends(user1,user2) VALUES('".$user1."','".$user2."')";
-$addfriends2 = "INSERT INTO friends(user1,user2) VALUES('".$user2."','".$user1."')";
+$addfriends = "INSERT INTO friends(user1,user2,user2Nickname) VALUES('".$user1."','".$user2."','')";
+$addfriends2 = "INSERT INTO friends(user1,user2,user2Nickname) VALUES('".$user2."','".$user1."','')";
+
 $checkfriends ="select user2 from friends where user1='".$user1."' and user2='".$user2."'"; // 친구목록에 등록되어있는지 확인
+
 $checkprofile ="select id from profile where id='".$user2."'"; // 유효한 사용자인지 확인
+
+$searchNickname ="select Nickname from profile where id='".$user2."'";// user2의 Nickname
+$searchNickname2 = "select Nickname from profile where id='".$user1."'"; // user1의 Nickname
+
 
 $check = mysqli_query($conn,$checkfriends);
 $checksum = mysqli_num_rows($check); // 친구목록
@@ -43,10 +49,21 @@ else{
 				}
 			else
 				{
-					if(($conn->query($addfriends)===TRUE)&&($conn->query($addfriends2)===TRUE))
-						{
-							echo$user2."님과 친구가 되었습니다.";
+					$Nickname = mysqli_query($conn,$searchNickname);
+					foreach($Nickname as $N){
+						$query = "INSERT INTO friends(user1,user2,user2Nickname) VALUES('".$user1."','".$user2."','".$N['Nickname']."')";
+						if($conn->query($query)===TRUE){
+							echo$user2;
 						}
+					}
+					$Nickname = mysqli_query($conn,$searchNickname2);
+					foreach($Nickname as $N){
+						$query = "INSERT INTO friends(user1,user2,user2Nickname) VALUES('".$user2."','".$user1."','".$N['Nickname']."')";
+						if($conn->query($query)===TRUE){
+							echo"님과 친구가 되었습니다.";
+						}
+					}
+				
 				}
 		}
 	else
