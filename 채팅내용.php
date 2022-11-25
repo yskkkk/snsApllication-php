@@ -35,7 +35,7 @@ if(($conn->query($view)===TRUE)||($conn->query($view2)===TRUE)&&($conn->query($c
 		echo $chat['count']."::".$chat['name']."::".$chat['message']."::".$chat['time']."::".$chat['view']."&<br>";
 		}
 }else{
-	echo"gd";
+
 }
 $conn->close();
 ?> 
