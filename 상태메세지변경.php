@@ -1,7 +1,6 @@
-<table class=reload>
+<table class=changestatemessage>
 <td>
 <?php
-//error_reporting(0);
 $servername = "localhost";
 $username = "root";
 $password = "tomtom";
@@ -13,13 +12,13 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("접속 오류: " . $conn->connect_error);
 }
-$value = $_GET['table'];
-$query = "set @cnt=0";
-$query2 ="update ".$value." set ".$value.".uid = @cnt:=@cnt+1";
 
-if(($conn -> query($query)===TRUE)&&($conn -> query($query2)===TRUE))
-{
-	echo $value."테이블 uid 재정렬 완료.";
-}
+$user = $_GET['user'];
+$statemessage = $_GET['statemessage'];
+
+$changestatemessage = "update profile set message ='".$statemessage."' where id = '".$user."'";
+	$result = mysqli_query($conn, $changestatemessage);
+		echo "상태메세지를 ".$statemessage."로 변경하였습니다.";
+
 $conn->close();
 ?> 

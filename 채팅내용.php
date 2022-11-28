@@ -17,30 +17,26 @@ if ($conn->connect_error) {
 $user1 = $_GET['user1'];
 $user2 = $_GET['user2'];
 //chatname = $_GET['chatname'];
-$user = $user1."_".$user2; //유저의 채팅방
-$user2 = $user2."_".$user1; //유저의 채팅방
+$users1 = $user1."_".$user2; //유저의 채팅방
+$users2 = $user2."_".$user1; //유저의 채팅방
 
+$view = "update ".$users2." set view=0"; //samron3_younghan2396
 
-$view = "update ".$user." set view=0";
-$view2 = "update ".$user2." set view=0";
-$count = "update chatlist set count=0 where chatname='".$user."'";
-
-$chatcontents = $conn->query("select * from ".$user." order by count");
+$count = "update chatlist set count=0 where chatname='".$users1."'";
+$chatcontents = $conn->query("select * from ".$users1." order by count");
 $chatcount = mysqli_num_rows($chatcontents);
 
 
-if(($conn->query($view)===TRUE)||($conn->query($view2)===TRUE)&&($conn->query($count)===TRUE))
+if(($conn->query($view)===TRUE)&&($conn->query($count)===TRUE))
+
+if(($conn->query($view)===TRUE)&&($conn->query($count)===TRUE))
 {
 	 foreach ($chatcontents as $chat){ 
 		echo $chat['count']."::".$chat['name']."::".$chat['message']."::".$chat['time']."::".$chat['view']."&<br>";
 		}
 }else{
-
 }
 $conn->close();
 ?> 
 
 
-<script language='javascript'>
-  window.setTimeout('window.location.reload()',1000); 
- </script>

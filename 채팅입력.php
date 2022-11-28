@@ -1,3 +1,5 @@
+<table class=sendchat>
+<td>
 <?php
 error_reporting(0);
 $servername = "localhost";

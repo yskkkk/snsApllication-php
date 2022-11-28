@@ -37,7 +37,7 @@ if($user2=="")
 		echo "상대방의 id를 입력해주세요.<br>";
 	}
 else{
-	if($checksum2)
+	if($checksum2) //존재하는 회원인지 확인
 		{	 
 			if($checksum)
 				{
@@ -53,14 +53,13 @@ else{
 					foreach($Nickname as $N){
 						$query = "INSERT INTO friends(user1,user2,user2Nickname) VALUES('".$user1."','".$user2."','".$N['Nickname']."')";
 						if($conn->query($query)===TRUE){
-							echo$user2;
 						}
 					}
 					$Nickname = mysqli_query($conn,$searchNickname2);
 					foreach($Nickname as $N){
 						$query = "INSERT INTO friends(user1,user2,user2Nickname) VALUES('".$user2."','".$user1."','".$N['Nickname']."')";
 						if($conn->query($query)===TRUE){
-							echo"님과 친구가 되었습니다.";
+							echo$user2."님과 친구가 되었습니다.";
 						}
 					}
 				
