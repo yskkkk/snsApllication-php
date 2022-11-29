@@ -9,14 +9,14 @@ $dbpass = 'tomtom';
 $mysqli = new mysqli($hostname, $dbuser, $dbpass, $dbname);
 
 // STEP THREE : SQL query
-$posting = $mysqli->query('SELECT * FROM posting order by num desc');
+$posting = $mysqli->query('SELECT * FROM posting order by uid desc');
 
  ?>
 
 <table> 
 <thead>
 	<tr>
-	  <th>num</th>
+	  <th>uid</th>
 	 <th>title</th>
          <th>user</th>
 	 <th>contents</th>
@@ -27,7 +27,7 @@ $posting = $mysqli->query('SELECT * FROM posting order by num desc');
 <tbody>
        <tr>
 	 <?php foreach ($posting as $post){ ?>
-	 <td> <?php echo $post['num']; ?> </td>
+	 <td> <?php echo $post['uid']; ?> </td>
 	 <td> <?php echo $post['title']; ?> </td>
 	 <td> <?php echo $post['user']; ?> </td>
 	 <td> <?php echo $post['contents']; ?> </td>

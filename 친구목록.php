@@ -35,23 +35,21 @@ if($friendlist)
 						$showfriends ="select * from profile where id='".$fl['user2']."'order by Nickname asc";
 						$showfriendvalue = mysqli_query($conn,$showfriends);
 						foreach($showfriendvalue as $sf)
-							{
-								echo  $sf['uid']."::".$sf['id']."::".$sf['name']."::".$sf['message']."::".$sf['image']."::".$sf['Nickname']."///";
-							}
+								echo  $sf['uid']."::".$sf['id']."::".$sf['name']."::".$sf['message']."::".$sf['image']."::".$fl['user2Nickname']."///";
+							
 					}
 	}else
 		{	
 			if($exist){
-			$findfriends="select user2 from friends where user2Nickname like'%".$user2."%'";
+			$findfriends="select distinct user2,user2Nickname from friends where user2Nickname like'%".$user2."%'";
 			$resultfind = mysqli_query($conn,$findfriends);
 			foreach($resultfind as $rf){
 			$findprofilequery = "select * from profile where id like '".$rf['user2']."' order by id";
 			$findprofile = mysqli_query($conn,$findprofilequery);
-				{ 
-					foreach($findprofile as $fp){
-					echo $fp['uid']."::".$fp['id']."::".$fp['name']."::".$fp['message']."::".$fp['image']."::".$fp['Nickname']."///";
+					foreach($findprofile as $fp)
+					if($user1 != $fp['id']){
+					echo $fp['uid']."::".$fp['id']."::".$fp['name']."::".$fp['message']."::".$fp['image']."::".$rf['user2Nickname']."///<br>";
 					}
-				}
 			}
 
 			}else

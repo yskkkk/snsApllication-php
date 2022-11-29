@@ -19,22 +19,29 @@ $user2=$_GET['user2'];
 $value1=$_GET['user1']."_".$_GET['user2']; //채팅방 이름
 $value2=$_GET['user2']."_".$_GET['user1']; //채팅방 이름 
 
-$createtable1 = "create table ".$value1."( count int not null auto_increment, name varchar(20) not null, message varchar(200), time varchar(20),view int ,primary key(count))charset=utf8";
-$createtable2 = "create table ".$value2."( count int not null auto_increment, name varchar(20) not null, message varchar(200), time varchar(20),view int , primary key(count))charset=utf8";
+$createtable1 = "create table ".$value1."( count int not null auto_increment, id varchar(20), name varchar(20) not null, message varchar(1000), time varchar(20),view int ,primary key(count))charset=utf8";
+$createtable2 = "create table ".$value2."( count int not null auto_increment, id varchar(20), name varchar(20) not null, message varchar(1000), time varchar(20),view int , primary key(count))charset=utf8";
 
 $existcheck1 = "select chatname from chatlist where chatname='".$value1."'"; 
 $existcheck2 = "select chatname from chatlist where chatname='".$value2."'"; // user2의 채팅이 있는지 확인
 
-$insertchatlist1="insert into chatlist(chatname,roomname,user2,time,count) values('".$value1."','".$user2."','".$user2."',sysdate(),0)";
-$insertchatlist2="insert into chatlist(chatname,roomname,user2,time,count) values('".$value2."','".$user1."','".$user1."',sysdate(),0)";
+$searchquery ="select user2Nickname from friends where user1= '".$user1."' and user2='".$user2."'";
+$search =mysqli_query($conn,$searchquery);
+foreach($search as $s){
+$insertchatlist1="insert into chatlist(chatname,roomname,user2,time,count) values('".$value1."','".$s['user2Nickname']."','".$user2."',sysdate(),0)";
+}
 
-
+$searchquery ="select user2Nickname from friends where user2= '".$user1."' and user1='".$user2."'";
+$search =mysqli_query($conn,$searchquery);
+foreach($search as $s){
+$insertchatlist2="insert into chatlist(chatname,roomname,user2,time,count) values('".$value2."','".$s['user2Nickname']."','".$user1."',sysdate(),0)";
+}
 $existResult1 = mysqli_query($conn,$existcheck1); //  용수의 영한이와의 채팅방이 있는지 여부를 확인함
 $checknum1 = mysqli_num_rows($existResult1) ;// 채팅방이 있는지 여부를 불러온 데이터의 컬럼 수로 파악 0일 경우 없음
 
 $existResult2 = mysqli_query($conn,$existcheck2); //  영한의 용수와의 채팅방이 있는지 여부를 확인함
 $checknum2 = mysqli_num_rows($existResult2) ;// 채팅방이 있는지 여부를 불러온 데이터의 컬럼 수로 파악 0일 경우 없음
-
+if(($user1!="")||($user2!="")){
 if($checknum1==0) // 용수_영한의 채팅방이 없다.
 {
 	if($checknum2==0)//영한이가 없다
@@ -63,7 +70,10 @@ else{ //용수_영한의 채팅방이 있다.
 		echo "이미 채팅방이 있습니다.";
 	}
 }
-
+}
+else{
+	echo "값이 비어있습니다.";
+}
 $conn->close();
 ?> 
 

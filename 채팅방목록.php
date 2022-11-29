@@ -24,7 +24,7 @@ $chatcount = mysqli_num_rows($chatlist);
 		$img = mysqli_query($conn, "select * from profile where id ='".$cl['user2']."'");
 		foreach($message as $m)
 		foreach($img as $im)
-		echo $im['image']."::".$cl['roomname']."::".$m['message']."::".$cl['count']."::".$cl['time']."&<br>";
+		echo $im['image']."::".$cl['roomname']."::".$m['message']."::".$cl['count']."::".$cl['time']."::".$im['id']."&<br>";
 		}
 
 $conn->close();

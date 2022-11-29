@@ -1,7 +1,7 @@
 <table class=sendchat>
 <td>
 <?php
-error_reporting(0);
+//error_reporting(0);
 $servername = "localhost";
 $username = "root";
 $password = "tomtom";
@@ -32,8 +32,12 @@ $checksum= mysqli_num_rows($check); // 차단되었는지 확인
 
 $message = $_GET['message']; // 메세지
 
-$chatting1 = "insert into ".$value1."(name, message, time, view) values('".$user1."','".$message."',now(),1)";
-$chatting2 = "insert into ".$value2."(name, message, time, view) values('".$user1."','".$message."',now(),1)";
+$name = "select user2Nickname from friends where user2= '".$user1."' and user1 = '".$user2."'"; 
+$namevalue = mysqli_query($conn,$name);
+foreach($namevalue as $nv){
+$chatting1 = "insert into ".$value1."(name, message, time, view, id) values('".$nv['user2Nickname']."','".$message."',date_format(now(),'%H:%i'),1,'".$user1."')";
+$chatting2 = "insert into ".$value2."(name, message, time, view, id) values('".$nv['user2Nickname']."','".$message."',date_format(now(),'%H:%i'),0,'".$user1."')";
+}
 
 $count = "update chatlist set count =count+1 where chatname='".$value2."'";
 $time = "update chatlist set time =now() where chatname='".$value2."'";

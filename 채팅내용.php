@@ -23,16 +23,16 @@ $users2 = $user2."_".$user1; //유저의 채팅방
 $view = "update ".$users2." set view=0"; //samron3_younghan2396
 
 $count = "update chatlist set count=0 where chatname='".$users1."'";
-$chatcontents = $conn->query("select * from ".$users1." order by count");
+$chatcontents = $conn->query("select * from ".$users1." order by count desc");
 $chatcount = mysqli_num_rows($chatcontents);
 
 
-if(($conn->query($view)===TRUE)&&($conn->query($count)===TRUE))
+mysqli_query($conn, $view);
 
 if(($conn->query($view)===TRUE)&&($conn->query($count)===TRUE))
 {
 	 foreach ($chatcontents as $chat){ 
-		echo $chat['count']."::".$chat['name']."::".$chat['message']."::".$chat['time']."::".$chat['view']."&<br>";
+		echo $chat['count']."::".$chat['id']."::".$chat['name']."::".$chat['message']."::".$chat['time']."::".$chat['view']."&<br>";
 		}
 }else{
 }

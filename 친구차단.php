@@ -24,7 +24,6 @@ $searchblack = "select * from blacklist where user1='".$user1."' and user2 ='".$
 $check3 =mysqli_query($conn,$searchblack);
 $checksum3 = mysqli_num_rows($check3);
 
-echo $searchblack;
 $searchfriends = "select * from friends where user1='".$user2."'";
 $searchprofile ="select * from profile where id='".$user2."'";
 
@@ -37,8 +36,11 @@ $checksum2 = mysqli_num_rows($check2); //친구목록에서 존재하는지 검�
 if($checksum3){
 	echo "이미 차단한 사용자 입니다.";
 }else{
-if(($conn->query($deletefriends)===TRUE)&&($conn->query($deletefriends2)===TRUE)&&($conn->query($addblacklist)===TRUE)&&$checksum)
-	{
+if($checksum)
+	{	
+		mysqli_query($conn, $deletefriends);
+		mysqli_query($conn, $deletefriends2);
+		mysqli_query($conn, $addblacklist);
 		echo $user2."님을 차단하였습니다.";
 	}
 else if($checksum2)
