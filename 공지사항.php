@@ -1,5 +1,5 @@
 <table class=notice>
-
+<td>
 <?php 
 $hostname = 'localhost';
 $dbname = 'ysk';
@@ -8,15 +8,9 @@ $dbpass = 'tomtom';
 
 $mysqli = new mysqli($hostname, $dbuser, $dbpass, $dbname);
 
-$posting = $mysqli->query('SELECT * FROM notice order by uid desc');
-?>
-
-	  <tr>
-	 <?php foreach ($posting as $post){ ?>
-	 <td> <?php echo $post['uid']; ?> </td>
-	 <td> <?php echo $post['title']; ?> </td>
-	 <td> <?php echo $post['contents']; ?> </td>
-	 <td> <?php echo $post['time']; ?> </td>
-	<body bgcolor='white'>
-      </tr>
-	<?php } ?>
+$posting = $mysqli->query('SELECT * FROM notice order by uid desc'); 
+ foreach ($posting as $post){
+	echo $post['uid']."::".$post['title']."::".$post['contents']."::".$post['time']."///"; //모든 공지사항 출력
+}
+	
+ ?>

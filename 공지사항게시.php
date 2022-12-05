@@ -16,14 +16,12 @@ if ($conn->connect_error) {
 
 $sql = "INSERT INTO notice(title, contents, time) VALUES ('".$_GET['title']."','".$_GET['contents']."',DATE_FORMAT(sysdate(), '%Y-%m-%d'))";
 
-if(($_GET['title']=="")||($_GET['contents']=="")){
+if(($_GET['title']=="")||($_GET['contents']=="")){ // 파라미터가 비어있을경우
 echo "값이 비어있습니다.";
 }
 else{
-if ($conn->query($sql) === TRUE) {
+if ($conn->query($sql) === TRUE) { // 공지사항을 등록함
   echo "공지사항이 등록되었습니다.";
-} else {
-  echo "오류: " . $sql . "<br>" . $conn->error;
 }
 }
 

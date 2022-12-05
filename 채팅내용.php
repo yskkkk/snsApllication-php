@@ -29,10 +29,10 @@ $chatcount = mysqli_num_rows($chatcontents);
 
 mysqli_query($conn, $view);
 
-if(($conn->query($view)===TRUE)&&($conn->query($count)===TRUE))
+if(($conn->query($view)===TRUE)&&($conn->query($count)===TRUE))// view와 count 값을 0으로 초기화시켜준다.
 {
 	 foreach ($chatcontents as $chat){ 
-		echo $chat['count']."::".$chat['id']."::".$chat['name']."::".$chat['message']."::".$chat['time']."::".$chat['view']."&<br>";
+		echo $chat['count']."::".$chat['id']."::".$chat['name']."::".$chat['message']."::".$chat['time']."::".$chat['view']."&<br>";// 채팅내용을 보여준다.
 		}
 }else{
 }

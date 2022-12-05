@@ -18,4 +18,5 @@ if ($conn->query($sql3) === TRUE) {
   echo "공지사항 게시 완료";
 }
 $conn->close();
+// 공지사항을 초기화하고 기본공지를 삽입한다.
 ?>

@@ -1,39 +1,41 @@
-<?php 
-$hostname = 'localhost';
+<table class=post>
+<td>
+<?php
+error_reporting(1);
+$servername = 'localhost';
+$username = 'root';
+$password = 'tomtom';
 $dbname = 'ysk';
-$dbuser = 'root';
-$dbpass = 'tomtom';
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+$user1= $_GET['user1'];
+$user2= $_GET['user2name'];
 
 
-// STEP TWO : connecting to the database
-$mysqli = new mysqli($hostname, $dbuser, $dbpass, $dbname);
+if($user2==""){// user2의 값이 비어있을경우 user1의 id값에 해당하는 게시글들만 불러온다
+$friendquery = "select user2 from friends where user1='".$user1."'union select '".$user1."'";
+$friend = mysqli_query($conn, $friendquery);
 
-// STEP THREE : SQL query
-$posting = $mysqli->query('SELECT * FROM posting order by uid desc');
-
- ?>
-
-<table> 
-<thead>
-	<tr>
-	  <th>uid</th>
-	 <th>title</th>
-         <th>user</th>
-	 <th>contents</th>
-         <th>time</th>
-	 </tr>
-</thead>
-
-<tbody>
-       <tr>
-	 <?php foreach ($posting as $post){ ?>
-	 <td> <?php echo $post['uid']; ?> </td>
-	 <td> <?php echo $post['title']; ?> </td>
-	 <td> <?php echo $post['user']; ?> </td>
-	 <td> <?php echo $post['contents']; ?> </td>
-	 <td> <?php echo $post['time']; ?> </td>
-	<body bgcolor='white'>
-      </tr>
-	<?php } ?>
-</tbody>
-</table>
+foreach($friend as $f){
+	$searchpostquery = "select * from posting where id = '".$f['user2']."'order by uid desc";
+	$searchpost = mysqli_query($conn, $searchpostquery);
+		foreach($searchpost as $sp)
+			 echo $sp['uid']."::".$sp['id']."::".$sp['image']."::".$sp['postimage']."::".$sp['user']."::".$sp['contents']."::".$sp['time']."///<br>";
+		}
+}else if($user2 != ""){//user2에 입력값이 있을경우 게시글 검색으로 간주하고 검색어가 포함된 이름과 내용을 검색한다.
+$friendquery = "select distinct user2 from friends where user1='".$user1."'or user2Nickname like '%".$user2."%' union select '".$user1."'";
+$friend = mysqli_query($conn, $friendquery);
+foreach($friend as $f)
+{
+	$friendquery = "select user2 from friends where user1='".$user1."' and user2Nickname ='".$user2."'";
+	$friend = mysqli_query($conn, $friendquery);
+	$searchpostquery = "select * from posting where id = '".$f['user2']."' and contents like '%".$user2."%'";
+	$searchpost = mysqli_query($conn, $searchpostquery);
+		foreach($searchpost as $sp)
+		{
+			 echo $sp['uid']."::".$sp['id']."::".$sp['image']."::".$sp['postimage']."::".$sp['user']."::".$sp['contents']."::".$sp['time']."///<br>";
+		}
+}
+}
+?>

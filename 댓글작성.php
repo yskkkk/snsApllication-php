@@ -20,10 +20,10 @@ $comment = $_GET['comment'];
 $searchprofile = "select * from profile where id='".$id."'";
 $search = mysqli_query($conn, $searchprofile);
 foreach($search as $s){
-$update = "insert into comment(postuid, image, Nickname, comment, time) value('".$postuid."', '".$s['image']."', '".$s['Nickname']."', '".$comment."', now())";
+$update = "insert into comment(postuid, image, Nickname, comment, time, id) value('".$postuid."', '".$s['image']."', '".$s['Nickname']."', '".$comment."', date_format(now(),'%H:%i'),'".$s['id']."')";
 }
 
-	if($conn-> query($update)===TRUE)
+	if($conn-> query($update)===TRUE) //댓글을 작성한다.
 	{
 		echo "댓글을 작성하였습니다.";
 	}

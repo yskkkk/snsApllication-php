@@ -18,7 +18,7 @@ $name = $_GET['name'];
 
 $changename = "update profile set name ='".$name."' where id = '".$user."'";
 
-	$result = mysqli_query($conn, $changename);
+	$result = mysqli_query($conn, $changename); // 이름을 변경한다.
 		echo "이름을 ".$name."로 변경하였습니다.";
 
 $conn->close();

@@ -22,11 +22,11 @@ $checkfriends ="select user2 from friends where user1='".$user1."' and user2='".
 
 $checkprofile ="select id from profile where id='".$user2."'"; // 유효한 사용자인지 확인
 
+$deleteblacklist ="delete from blacklist where user1='".$user1."' and user2 = '".$user2."'";
+
 $checkblacklist = "select user2 from blacklist where user1= '".$user1."' and user2 = '".$user2."'";
 $checkblack = mysqli_query($conn, $checkblacklist);
 $checksum4 = mysqli_num_rows($checkblack); // 블랙리스트에 있는지 확인
-echo $checkblacklist."<br>";
-
 $searchNickname ="select Nickname from profile where id='".$user2."'";// user2의 Nickname
 $searchNickname2 = "select Nickname from profile where id='".$user1."'"; // user1의 Nickname
 
@@ -63,7 +63,7 @@ else{
 					$Nickname = mysqli_query($conn,$searchNickname2);
 					foreach($Nickname as $N){
 						$query = "INSERT INTO friends(user1,user2,user2Nickname) VALUES('".$user2."','".$user1."','".$N['Nickname']."')";
-						if($conn->query($query)===TRUE){
+						if(($conn->query($query)===TRUE)&&($conn->query($deleteblacklist))){
 							echo$user2."님과 친구가 되었습니다.";
 						}
 					}
@@ -71,12 +71,8 @@ else{
 				}
 		}
 	else
-		{	if($checksum4)
-			{
-				echo "차단한 사용자입니다.";
-			}else{
+		{	
 			echo "존재하지 않는 사용자입니다.";
-			}
 		}
 }
 

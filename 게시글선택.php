@@ -19,13 +19,13 @@ $post = "select * from posting where uid = '".$postuid."'";
 $printpost = mysqli_query($conn,$post);
 foreach($printpost as $pp)
 	{
-		echo $pp['uid']."::".$pp['title']."::".$pp['user']."::".$pp['contents']."::".$pp['time']."<br><br>";
+		//echo $pp['uid']."::".$pp['title']."::".$pp['user']."::".$pp['contents']."::".$pp['time']."<br><br>";//게시글 출력
 	}
 $comment = "select * from comment where postuid='".$postuid."'";
 $comments = mysqli_query($conn,$comment);
 	foreach($comments as $c)
 		{
-			echo $c['commentuid']."::".$c['image']."::".$c['Nickname']."::".$c['comment']."::".$c['time']."///<br>";
+			echo $pp['uid']."::".$c['commentuid']."::".$c['image']."::".$c['Nickname']."::".$c['comment']."::".$c['time']."///<br>"; // 게시글의 댓글 출력
 		}
 
 $conn->close();

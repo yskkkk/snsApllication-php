@@ -37,11 +37,8 @@ if($checksum3){
 	echo "이미 차단한 사용자 입니다.";
 }else{
 if($checksum)
-	{	
-		mysqli_query($conn, $deletefriends);
-		mysqli_query($conn, $deletefriends2);
-		mysqli_query($conn, $addblacklist);
-		echo $user2."님을 차단하였습니다.";
+	{	if(($conn->query($deletefriends)===TRUE)&&($conn->query($deletefriends2)===TRUE)&&($conn->query($addblacklist)===TRUE))
+		{echo $user2."님을 차단하였습니다.";}
 	}
 else if($checksum2)
 	{

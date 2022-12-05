@@ -28,13 +28,13 @@ $existcheck2 = "select chatname from chatlist where chatname='".$value2."'"; // 
 $searchquery ="select user2Nickname from friends where user1= '".$user1."' and user2='".$user2."'";
 $search =mysqli_query($conn,$searchquery);
 foreach($search as $s){
-$insertchatlist1="insert into chatlist(chatname,roomname,user2,time,count) values('".$value1."','".$s['user2Nickname']."','".$user2."',sysdate(),0)";
+$insertchatlist1="insert into chatlist(chatname,roomname,user2,time,count, user2Nickname) values('".$value1."','".$s['user2Nickname']."','".$user2."',sysdate(),0,'".$s['user2Nickname']."')";
 }
 
 $searchquery ="select user2Nickname from friends where user2= '".$user1."' and user1='".$user2."'";
 $search =mysqli_query($conn,$searchquery);
 foreach($search as $s){
-$insertchatlist2="insert into chatlist(chatname,roomname,user2,time,count) values('".$value2."','".$s['user2Nickname']."','".$user1."',sysdate(),0)";
+$insertchatlist2="insert into chatlist(chatname,roomname,user2,time,count, user2Nickname) values('".$value2."','".$s['user2Nickname']."','".$user1."',sysdate(),0, '".$s['user2Nickname']."')";
 }
 $existResult1 = mysqli_query($conn,$existcheck1); //  용수의 영한이와의 채팅방이 있는지 여부를 확인함
 $checknum1 = mysqli_num_rows($existResult1) ;// 채팅방이 있는지 여부를 불러온 데이터의 컬럼 수로 파악 0일 경우 없음

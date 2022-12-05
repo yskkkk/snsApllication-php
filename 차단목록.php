@@ -1,4 +1,4 @@
-<table class=blacktlist>
+<table class=blacklist>
 <td>
 <?php
 error_reporting(0);
@@ -22,19 +22,19 @@ $check= mysqli_query($conn,"select * from blacklist where user1= '".$user1."' an
 $checksum= mysqli_num_rows($check);
 
 $searchblacklist = mysqli_query($conn,$searchblacklistquery);
-if($user2==""){
+if($user2==""){ // user2의 입력값이 비어있는 경우
 	 foreach ($searchblacklist as $sbl){ 
 		$result = mysqli_query($conn,"select id,name from profile where id= '".$sbl['user2']."'");
 			foreach($result as $r)
 			{
-				echo $r['id']."::".$r['name']."///";
+				echo $r['uid']."::".$r['id']."::".$r['name']."///"; //차단한 사용자의 목록을 불러온다.
 			}
 	}
-}else{
+}else{ // user2의 입력값이 있는경우 차단해제를 진행한다.
 $deleteblacklistquery="delete from blacklist where user2='".$user2."'";
 	if(($conn->query($deleteblacklistquery)===TRUE)&&$checksum)
 		{
-			echo $user2."의 차단이 해제되었습니다.";
+			echo $user2."의 차단이 해제되었습니다."; //차단을 해제한다.
 		}
 	else
 	{

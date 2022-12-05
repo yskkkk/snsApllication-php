@@ -17,7 +17,7 @@ $user = $_GET['user'];
 $statemessage = $_GET['statemessage'];
 
 $changestatemessage = "update profile set message ='".$statemessage."' where id = '".$user."'";
-	$result = mysqli_query($conn, $changestatemessage);
+	$result = mysqli_query($conn, $changestatemessage); // 상태메세지를 변경한다.
 		echo "상태메세지를 ".$statemessage."로 변경하였습니다.";
 
 $conn->close();

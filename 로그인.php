@@ -33,7 +33,7 @@ else
 	echo $post['day']."::"; 
 	echo $post['birthday']."::";
 	echo $post['Nickname']."<br>";
-	}// foreach
+	}// 로그인에 성공하면 정보를 반환한다.
  }	
 
 }

@@ -39,4 +39,3 @@ if($checksum){ // 채팅방이 존재하면
 }
 $conn->close();
 ?> 
-ex) user1=ys&user2=yh&chatroomname=컴퓨터공학
