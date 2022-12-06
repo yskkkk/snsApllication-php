@@ -11,8 +11,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 $user1= $_GET['user1'];
 $user2= $_GET['user2name'];
-
-
+$check =0;
 if($user2==""){// user2의 값이 비어있을경우 user1의 id값에 해당하는 게시글들만 불러온다
 $friendquery = "select user2 from friends where user1='".$user1."'union select '".$user1."'";
 $friend = mysqli_query($conn, $friendquery);
@@ -28,14 +27,24 @@ $friendquery = "select distinct user2 from friends where user1='".$user1."'or us
 $friend = mysqli_query($conn, $friendquery);
 foreach($friend as $f)
 {
-	$friendquery = "select user2 from friends where user1='".$user1."' and user2Nickname ='".$user2."'";
+	$friendquery = "select user2 from friends where user1='".$user1."' and user2Nickname ='%".$user2."%'";
 	$friend = mysqli_query($conn, $friendquery);
-	$searchpostquery = "select * from posting where id = '".$f['user2']."' and contents like '%".$user2."%'";
+	$searchpostquery = "select * from posting where id = '".$f['user2']."' and contents like '%".$user2."%' order by uid desc";
+	if($f['user2']== $user1)
+	{
+		$searchpostquery = "select * from posting where id = '".$f['user2']."' and contents like '%".$user2."%' or user like '%".$user2."%'order by uid desc";
+	}
 	$searchpost = mysqli_query($conn, $searchpostquery);
-		foreach($searchpost as $sp)
-		{
-			 echo $sp['uid']."::".$sp['id']."::".$sp['image']."::".$sp['postimage']."::".$sp['user']."::".$sp['contents']."::".$sp['time']."///<br>";
-		}
+	$checksum= mysqli_num_rows($searchpost);
+		if($checksum){
+		foreach($searchpost as $sp){
+			echo $sp['uid']."::".$sp['id']."::".$sp['image']."::".$sp['postimage']."::".$sp['user']."::".$sp['contents']."::".$sp['time']."///<br>";
+			}}
+	else if ($check==0)
+	{		
+		$check++;
+		echo "일치하는 게시글이 없습니다.";
+	}
 }
 }
 ?>

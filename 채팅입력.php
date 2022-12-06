@@ -30,7 +30,7 @@ $checksum2= mysqli_num_rows($check2); // 회원정보에 있는지 확인
 $check = mysqli_query($conn,$checkblock);
 $checksum= mysqli_num_rows($check); // 차단되었는지 확인
 
-$message = $_GET['message']; // 메세지
+$message = addslashes($_GET['message']); // 메세지
 
 $name = "select user2Nickname from friends where user2= '".$user1."' and user1 = '".$user2."'"; 
 $namevalue = mysqli_query($conn,$name);
@@ -39,7 +39,7 @@ $chatting1 = "insert into ".$value1."(name, message, time, view, id) values('".$
 $chatting2 = "insert into ".$value2."(name, message, time, view, id) values('".$nv['user2Nickname']."','".$message."',date_format(now(),'%H:%i'),0,'".$user1."')";
 }
 
-$count = "update chatlist set count =count+1 where chatname='".$value2."'";
+$count = "update chatlist set count = count+1 where chatname='".$value2."'";
 $time = "update chatlist set time =now() where chatname='".$value2."'";
 $time2 = "update chatlist set time =now() where chatname='".$value1."'";
 
