@@ -36,6 +36,10 @@ $friendquery = "select * from friends where user1= '".$id."'or user2 ='".$id."'"
 
 $deletequery = "delete from friends where user1 ='".$id."' or user2='".$id."'";
 
+$deletepost = "delete from posting where id= '".$id."'";
+
+$deletecomment = "delete from comment where id = '".$id."'";
+
 $auto="alter table chatlist auto_increment=1";
 
 $searchtable = mysqli_query($conn,$dropquery); //   채팅방테이블이 있는지 여부를 확인
@@ -49,6 +53,8 @@ $checknum3 = mysqli_num_rows($searchfriend); // 친구리스트에서 검색
 
 
 if($checksum){
+	mysqli_query($conn, $deletepost);
+	mysqli_query($conn, $deletecomment);
 	if(($conn->query($deleteprofile)===TRUE)&&($conn->query($autoP)===TRUE)){
 	foreach($searchtable as $st) //채팅방테이블 검색을 하나씩 불러옴
 	{
@@ -70,6 +76,7 @@ if($checksum){
 		
 		}
 }
+	
 	echo"회원탈퇴가 완료되었습니다.";
 
 }//프로필 지우기

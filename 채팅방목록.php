@@ -30,7 +30,7 @@ if($user2==""){
 		}
 }else if ($user2 !="")
 {
-	$chatlist = mysqli_query($conn,"select * from chatlist where chatname like '".$user1."\_%' and user2Nickname like '%".$user2."%' or roomname like '%".$user2."%' and user2 != '".$user1."'  order by time desc");
+	$chatlist = mysqli_query($conn,"select * from chatlist where chatname like '".$user1."\_%' and (user2Nickname like '%".$user2."%' or roomname like '%".$user2."%') and user2 != '".$user1."'  order by time desc");
 	$checksum= mysqli_num_rows($chatlist);
 	if($checksum){
 	foreach ($chatlist as $cl){ 

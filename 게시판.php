@@ -29,22 +29,24 @@ foreach($friend as $f)
 {
 	$friendquery = "select user2 from friends where user1='".$user1."' and user2Nickname ='%".$user2."%'";
 	$friend = mysqli_query($conn, $friendquery);
-	$searchpostquery = "select * from posting where id = '".$f['user2']."' and contents like '%".$user2."%' order by uid desc";
+	$searchpostquery = "select * from posting where id = '".$f['user2']."' and contents like '%".$user2."%' order by time asc";
 	if($f['user2']== $user1)
 	{
-		$searchpostquery = "select * from posting where id = '".$f['user2']."' and contents like '%".$user2."%' or user like '%".$user2."%'order by uid desc";
+		$searchpostquery = "select * from posting where id = '".$f['user2']."' and contents like '%".$user2."%' or user like '%".$user2."%'order by time asc";
 	}
 	$searchpost = mysqli_query($conn, $searchpostquery);
 	$checksum= mysqli_num_rows($searchpost);
-		if($checksum){
+	if($checksum){
+		$check++;
 		foreach($searchpost as $sp){
 			echo $sp['uid']."::".$sp['id']."::".$sp['image']."::".$sp['postimage']."::".$sp['user']."::".$sp['contents']."::".$sp['time']."///<br>";
-			}}
-	else if ($check==0)
-	{		
-		$check++;
+		}
+	}
+}
+if($check == 0)
+	{
 		echo "일치하는 게시글이 없습니다.";
 	}
 }
-}
+
 ?>

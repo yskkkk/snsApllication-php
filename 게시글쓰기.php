@@ -14,17 +14,15 @@ if ($conn->connect_error) {
   die("접속 오류: " . $conn->connect_error);
 }
 $user = $_GET['user'];
-$postimage = $_GET['postimage'];
 $contents =$_GET['contents'];
 
 $searchNickname = "select * from profile where id ='".$user."'";
 
 $Nickname = mysqli_query($conn,$searchNickname);
 	foreach ($Nickname as $n){
-		$query = "insert into posting(id, image, postimage, user, contents, time) VALUES('".$user."','".$n['image']."','".$postimage."','".$n['Nickname']."','".$contents."',date_format(now(),'%c/%d %H:%i'))";
+		$query = "insert into posting(id, image, user, contents, time) VALUES('".$user."','".$n['image']."','".$n['Nickname']."','".$contents."',date_format(now(),'%c/%d %H:%i'))";
 	}
-
-if(($_GET['postimage']=="")||($_GET['user']=="")||($_GET['contents']=="")){// 파라미터가 비어있을경우
+if(($_GET['user']=="")||($_GET['contents']=="")){// 파라미터가 비어있을경우
 echo "값이 비어있습니다.";
 }
 else{

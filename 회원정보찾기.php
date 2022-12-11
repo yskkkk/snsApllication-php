@@ -30,7 +30,7 @@ if ($checkid and $id=="") {
 }
 else if(!$checkid)
 {
-	echo"일치하는 정보가 없습니다.";
+	echo"일치하는 정보가 없습니다.::";
 }
 
 if ($checkpassword && $id !="") {
@@ -41,7 +41,7 @@ if ($checkpassword && $id !="") {
   
 }else if(!$checkpassword && $checkid && $id != "")
 {
-	echo"일치하는 정보가 없습니다.";
+	echo"일치하는 정보가 없습니다.::";
 }
 $conn->close();
 ?>

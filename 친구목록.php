@@ -35,7 +35,7 @@ if($friendlist)
 						$showfriends ="select * from profile where id='".$fl['user2']."'order by Nickname asc";
 						$showfriendvalue = mysqli_query($conn,$showfriends);
 						foreach($showfriendvalue as $sf)
-								echo  $sf['uid']."::".$sf['id']."::".$sf['name']."::".$sf['message']."::".$sf['image']."::".$fl['user2Nickname']."///";
+								echo  $sf['uid']."::".$sf['id']."::".$sf['name']."::".$sf['message']."::".$sf['image']."::".$fl['user2Nickname']."::".$sf['phone']."///";
 							
 					}
 	}else
@@ -48,7 +48,7 @@ if($friendlist)
 			$findprofile = mysqli_query($conn,$findprofilequery);
 					foreach($findprofile as $fp)
 					if($user1 != $fp['id']){
-					echo $fp['uid']."::".$fp['id']."::".$fp['name']."::".$fp['message']."::".$fp['image']."::".$rf['user2Nickname']."///<br>";
+					echo $fp['uid']."::".$fp['id']."::".$fp['name']."::".$fp['message']."::".$fp['image']."::".$rf['user2Nickname']."::".$sf['phone']."///<br>";
 					}
 			}
 

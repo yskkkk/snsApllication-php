@@ -19,7 +19,7 @@ $post = "select * from posting where uid = '".$postuid."'";
 $printpost = mysqli_query($conn,$post);
 foreach($printpost as $pp)
 	{
-		//echo $pp['uid']."::".$pp['title']."::".$pp['user']."::".$pp['contents']."::".$pp['time']."<br><br>";//게시글 출력
+		//echo $pp['uid']."::".$pp['title']."::".$pp['user']."::".$pp['contents']."::".$pp['time']."::".$pp['time']."<br><br>";//게시글 출력
 	}
 $comment = "select * from comment where postuid='".$postuid."'";
 $comments = mysqli_query($conn,$comment);
