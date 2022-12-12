@@ -32,6 +32,9 @@ if($checksum) // 게시글이 존재하는지 여부 확인
 	if(($conn->query($deletepostquery)===TRUE)&&($conn->query($deletecommentquery)===TRUE))// 게시글 삭제, 관련 댓글삭제
 		{
 			echo "게시글이 삭제되었습니다.";
+		}else
+		{
+			echo "문제가 있습니다.";
 		}
 }else
 {
