@@ -46,6 +46,6 @@ $posting = $mysqli->query('SELECT * FROM profile');
 	 <td> <?php echo $post['Nickname']; ?> </td>
 	<body bgcolor='white'>
       </tr>
-	<?php } ?>
+	<?php }$mysqli->close(); ?>
 </tbody>
 </table>

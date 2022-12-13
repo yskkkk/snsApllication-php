@@ -11,6 +11,7 @@ if ($conn->connect_error) {
 }
 $id = $_GET['id'];
 $mode = $_GET['mode'];
+
    $image = $_FILES["image"]["name"];
    $imagePath = "./profileimage/".$image;
    $tmp_name = $_FILES["image"]["tmp_name"];

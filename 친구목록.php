@@ -48,7 +48,7 @@ if($friendlist)
 			$findprofile = mysqli_query($conn,$findprofilequery);
 					foreach($findprofile as $fp)
 					if($user1 != $fp['id']){
-					echo $fp['uid']."::".$fp['id']."::".$fp['name']."::".$fp['message']."::".$fp['image']."::".$rf['user2Nickname']."::".$sf['phone']."///<br>";
+					echo $fp['uid']."::".$fp['id']."::".$fp['name']."::".$fp['message']."::".$fp['image']."::".$rf['user2Nickname']."::".$fp['phone']."///<br>";
 					}
 			}
 

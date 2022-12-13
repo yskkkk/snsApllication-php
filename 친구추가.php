@@ -17,7 +17,6 @@ $user2 = $_GET['user2'];
 
 $addfriends = "INSERT INTO friends(user1,user2,user2Nickname) VALUES('".$user1."','".$user2."','')";
 $addfriends2 = "INSERT INTO friends(user1,user2,user2Nickname) VALUES('".$user2."','".$user1."','')";
-
 $checkfriends ="select user2 from friends where user1='".$user1."' and user2='".$user2."'"; // 친구목록에 등록되어있는지 확인
 
 $checkprofile ="select id from profile where id='".$user2."'"; // 유효한 사용자인지 확인
@@ -56,14 +55,16 @@ else{
 				{
 					$Nickname = mysqli_query($conn,$searchNickname);
 					foreach($Nickname as $N){
+						$updatequery = "update chatlist set roomname='".$N['Nickname']."', user2Nickname ='".$N['Nickname']."' where chatname ='".$user1."_".$user2."'";
 						$query = "INSERT INTO friends(user1,user2,user2Nickname) VALUES('".$user1."','".$user2."','".$N['Nickname']."')";
-						if($conn->query($query)===TRUE){
+						if(($conn->query($query)===TRUE)&&($conn->query($updatequery)===TRUE)){
 						}
 					}
 					$Nickname = mysqli_query($conn,$searchNickname2);
 					foreach($Nickname as $N){
 						$query = "INSERT INTO friends(user1,user2,user2Nickname) VALUES('".$user2."','".$user1."','".$N['Nickname']."')";
 						if(($conn->query($query)===TRUE)&&($conn->query($deleteblacklist))){
+							
 							echo$user2."님과 친구가 되었습니다.";
 						}
 					}

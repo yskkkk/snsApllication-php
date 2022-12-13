@@ -37,6 +37,7 @@ else
  }	
 
 }
+$conn->close();
  ?>
 </td>
 </table>

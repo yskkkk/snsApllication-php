@@ -16,5 +16,5 @@ $searchpost = mysqli_query($conn, $searchpostquery);
 	foreach($searchpost as $sp)
 		echo $sp['uid']."::".$sp['id']."::".$sp['image']."::".$sp['postimage']."::".$sp['user']."::".$sp['contents']."::".$sp['time']."///<br>";
 		
-
+$conn->close();
 ?>
